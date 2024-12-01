@@ -49,14 +49,12 @@ jobs:
           cat ./ips/cn_ipv6.txt >> ./data/cn
 
       - name: Get GeoLite2
-        env:
-          LICENSE_KEY: ${{ secrets.MAXMIND_GEOLITE2_LICENSE }}
         run: |
           mkdir -p ./output/ ./geolite2/
-          curl -L "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN&license_key=${LICENSE_KEY}&suffix=tar.gz" | tar -zx -C ./
-          curl -L "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=${LICENSE_KEY}&suffix=tar.gz" | tar -zx -C ./
-          curl -o ./GeoLite2-ASN-CSV.zip -L "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${LICENSE_KEY}&suffix=zip"
-          curl -o ./GeoLite2-Country-CSV.zip -L "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${LICENSE_KEY}&suffix=zip"
+          curl -L "https://github.com/Loyalsoldier/geoip/raw/refs/heads/release/GeoLite2-ASN.tar.gz" | tar -zx -C ./
+          curl -L "https://github.com/Loyalsoldier/geoip/raw/refs/heads/release/GeoLite2-Country.tar.gz" | tar -zx -C ./
+          curl -o ./GeoLite2-ASN-CSV.zip -L "https://github.com/Loyalsoldier/geoip/raw/refs/heads/release/GeoLite2-ASN-CSV.zip"
+          curl -o ./GeoLite2-Country-CSV.zip -L "https://github.com/Loyalsoldier/geoip/raw/refs/heads/release/GeoLite2-Country-CSV.zip"
           unzip ./GeoLite2-ASN-CSV.zip
           unzip ./GeoLite2-Country-CSV.zip
           rm -f ./*.zip
